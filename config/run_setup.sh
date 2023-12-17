@@ -8,5 +8,5 @@ sudo mysql -e "create user dvwa@localhost identified by 'p@ssw0rd';"
 sudo mysql -e "grant all on *.* to 'dvwa'@'localhost';"
 sudo mysql -e "flush privileges;"
 
-curl -X POST -c cookies.txt -d 'username=admin&password=password' http://localhost/login.php -L -o login.body &&\
+curl -X POST -c cookies.txt -d 'username=admin&password=password&Login=Login' http://localhost/login.php -L -o login.body &&\
 curl -b cookies.txt -X POST -d 'create_db=Create+%2F+Reset+Database' http://localhost/setup.php -L -o setup.body

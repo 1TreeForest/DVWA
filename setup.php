@@ -10,15 +10,6 @@ $page[ 'title' ]   = 'Setup' . $page[ 'title_separator' ].$page[ 'title' ];
 $page[ 'page_id' ] = 'setup';
 
 if( isset( $_POST[ 'create_db' ] ) ) {
-	// Anti-CSRF
-	if (array_key_exists ("session_token", $_SESSION)) {
-		$session_token = $_SESSION[ 'session_token' ];
-	} else {
-		$session_token = "";
-	}
-
-	checkToken( $_REQUEST[ 'user_token' ], $session_token, 'setup.php' );
-
 	if( $DBMS == 'MySQL' ) {
 		include_once DVWA_WEB_PAGE_TO_ROOT . 'dvwa/includes/DBMS/MySQL.php';
 	}
@@ -32,9 +23,6 @@ if( isset( $_POST[ 'create_db' ] ) ) {
 		dvwaPageReload();
 	}
 }
-
-// Anti-CSRF
-generateSessionToken();
 
 $database_type_name = "Unknown - The site is probably now broken";
 if( $DBMS == 'MySQL' ) {
@@ -95,7 +83,6 @@ allow_url_include = On</code></pre>
 	<!-- Create db button -->
 	<form action=\"#\" method=\"post\">
 		<input name=\"create_db\" type=\"submit\" value=\"Create / Reset Database\">
-		" . tokenField() . "
 	</form>
 	<br />
 	<hr />
